@@ -449,8 +449,12 @@ def getNbiOptions(incoming):
                             logging.debug('Image %s RootPath is a symlink, resolving...'
                                 % nbimageinfo['Name'])
                         else:
-                            thisnbi['dmg'] = \
-                                '/'.join(bootimage.split('/')[2:])
+                            #thisnbi['dmg'] = \
+                            #    '/'.join(bootimage.split('/')[2:])
+                            relativebootimage = bootimage.split('/')
+                            for i in tftprootpath.split('/'):
+                                relativebootimage.remove(i)
+                            thisnbi['dmg'] = relativebootimage
                     else:
                         for dmgtype in ('dmg', 'sparseimage'):
                             bootimage = find('*.%s' % dmgtype, path)[0]
