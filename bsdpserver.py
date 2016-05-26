@@ -444,8 +444,12 @@ def getNbiOptions(incoming):
                     if nbimageinfo.get('RootPath'):
                         bootimage = find(nbimageinfo.get('RootPath'), path)[0]
                         if os.path.islink(bootimage):
-                            thisnbi['dmg'] = \
-                                '/'.join(os.path.realpath(bootimage).split('/')[2:])
+                            #thisnbi['dmg'] = \
+                            #    '/'.join(os.path.realpath(bootimage).split('/')[2:])    
+                            relativepath = os.path.realpath(bootimage).split('/')
+                            for i in tftprootpath.split('/'):
+                                relativepath.remove(i)
+                            thisnbi['dmg'] = '/'.join(relativepath)                  
                             logging.debug('Image %s RootPath is a symlink, resolving...'
                                 % nbimageinfo['Name'])
                         else:
@@ -459,13 +463,21 @@ def getNbiOptions(incoming):
                         for dmgtype in ('dmg', 'sparseimage'):
                             bootimage = find('*.%s' % dmgtype, path)[0]
                             if os.path.islink(bootimage):
-                                thisnbi['dmg'] = \
-                                    '/'.join(os.path.realpath(bootimage).split('/')[2:])
+                                #thisnbi['dmg'] = \
+                                #    '/'.join(os.path.realpath(bootimage).split('/')[2:])
+                                relativepath = os.path.realpath(bootimage).split('/')
+                                for i in tftprootpath.split('/'):
+                                    relativepath.remove(i)
+                                thisnbi['dmg'] = '/'.join(relativepath)
                                 logging.debug('Image %s RootPath is a symlink, resolving...'
                                     % nbimageinfo['Name'])
                             else:
-                                thisnbi['dmg'] = \
-                                    '/'.join(bootimage.split('/')[2:])
+                                #thisnbi['dmg'] = \
+                                #    '/'.join(bootimage.split('/')[2:])
+                                relativepath = bootimage.split('/')
+                                for i in tftprootpath.split('/'):
+                                    relativepath.remove(i)
+                                thisnbi['dmg'] = '/'.join(relativepath)
 
 
                 thisnbi['enabledmacaddrs'] = \
