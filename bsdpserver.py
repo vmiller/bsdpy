@@ -451,10 +451,10 @@ def getNbiOptions(incoming):
                         else:
                             #thisnbi['dmg'] = \
                             #    '/'.join(bootimage.split('/')[2:])
-                            relativebootimage = bootimage.split('/')
+                            relativepath = bootimage.split('/')
                             for i in tftprootpath.split('/'):
-                                relativebootimage.remove(i)
-                            thisnbi['dmg'] = '/'.join(relativebootimage)
+                                relativepath.remove(i)
+                            thisnbi['dmg'] = '/'.join(relativepath)
                     else:
                         for dmgtype in ('dmg', 'sparseimage'):
                             bootimage = find('*.%s' % dmgtype, path)[0]
