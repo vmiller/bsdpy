@@ -270,7 +270,7 @@ try:
 
         else:
             if 'http' in bootproto:
-                basedmgpath = 'http://' + serverip_str + tftprootpath + '/'
+                basedmgpath = 'http://' + serverip_str + '/'
                 nbiurl = basedmgpath
                 logging.debug('Using HTTP basedmgpath %s' % basedmgpath)
             if 'nfs' in bootproto:
